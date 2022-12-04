@@ -12,10 +12,10 @@ body{
     display: grid;
     min-height: 100vh;
     grid-template-areas: 'home' 'control';
-    grid-template-rows: calc(100vh - 100px);
+    grid-template-rows: calc(100% - 100px);
     background-color: gray;
 
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 /* home style start */
