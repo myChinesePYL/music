@@ -30,6 +30,7 @@
             temp.volume=1;
             temp.onplay=function(){$('#ed')[0].src='./svg/music_play.svg';document.documentElement.__x.$data.played=true;};
             temp.onpause=function(){$('#ed')[0].src='./svg/music_stop.svg';document.documentElement.__x.$data.played=false;};
+            temp.preload="auto";
 
             // temp.muted=true;
             temp.play();
@@ -47,6 +48,10 @@
             }
         }
     </script>
+
+    <!-- load music(只是单纯加载) -->
+    <audio src="./src_music/黒皇帝 - Galaxy Collapse.mp3" load="auto"></audio>
+    <audio src="./src_music/red zone.mp3" load="auto"></audio>
 </head>
 <body>
     <!-- music home -->
@@ -57,13 +62,13 @@
 
     <!-- control -->
     <div id="control">
-        <img style="border-radius: var(--img-border-radius); transform: scale(0.8);-webkit-transform: scale(0.8)" id="music_png" src="./svg/notPlayMusic.svg" width="100" height="100">
+        <img loading="eager" style="border-radius: var(--img-border-radius); transform: scale(0.8);-webkit-transform: scale(0.8)" id="music_png" src="./svg/notPlayMusic.svg" width="100" height="100">
 
         <!-- music control -->
         <div id="control_music">
-            <img src="./svg/upDownMusic.svg" width="100" height="100">
-            <img src="./svg/music_stop.svg" width="100" height="100" id="ed" x-on:mouseup="playAndPause()">
-            <img src="./svg/upDownMusic.svg" style="-webkit-transform: rotate(180deg) translateX(-10px);transform: rotate(180deg) translateX(-10px);" width="100" height="100">
+            <img loading="eager" src="./svg/upDownMusic.svg" width="100" height="100">
+            <img loading="eager" src="./svg/music_stop.svg" width="100" height="100" id="ed" x-on:mouseup="playAndPause()">
+            <img loading="eager" src="./svg/upDownMusic.svg" style="-webkit-transform: rotate(180deg) translateX(-10px);transform: rotate(180deg) translateX(-10px);" width="100" height="100">
         </div>
 
         <!-- music setting -->
@@ -75,7 +80,7 @@
             </div>
 
             <!-- setting image -->
-            <img src="./svg/settings.svg" x-show="!start" width="100" height="100" id="settings">
+            <img loading="eager" src="./svg/settings.svg" x-show="!start" width="100" height="100" id="settings">
         </div>
     </div>
 </body>
