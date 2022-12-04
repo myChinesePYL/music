@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh_CN" x-data="{ exitBox: true,start: false }" x-on:mousedown="if(exitBox==true){start=false;console.log(start)}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My music</title>
+    <!-- style file -->
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <!-- js  -->
+    <script src="./alpine.js" defer></script>
+    <script src="./jquery.js"></script>
+
+    <script>
+        var temp=document.createElement('audio');
+
+        function play_music(info) {
+            // set img src
+            $('#music_png')[0].src=info.id_a;
+            // add music and play music
+            temp.src=info.music_src;
+            temp.volume=1;
+            temp.onplay=playMusic;
+            temp.onpause=pauseMusic;
+
+            temp.muted=true;
+            temp.play();
+        }
+        function pauseMusic() {
+            $('#ed')[0].src=''
+        }
+        function playMusic() {}
+    </script>
+</head>
+<body>
+    <!-- music home -->
+    <div id="home" x-data="{ id_a:'./src_png/黒皇帝 - Galaxy Collapse.jpg' }">
+        <button id="a" x-on:mouseup="play_music({id_a: id_a,music_src: './src_music/黒皇帝 - Galaxy Collapse.mp3'})">黒皇帝 - Galaxy Collapse</button>
+    </div>
+    <!-- control -->
+    <div id="control">
+        <img style="border-radius: var(--img-border-radius); transform: scale(0.8);-webkit-transform: scale(0.8)" id="music_png" src="./svg/notPlayMusic.svg" width="100" height="100">
+        <!-- music control -->
+        <div id="control_music">
+            <img src="./svg/upDownMusic.svg" width="100" height="100">
+            <img src="./svg/music_stop.svg" width="100" height="100" id="ed">
+            <img src="./svg/upDownMusic.svg" style="-webkit-transform: rotate(180deg) translateX(-10px);transform: rotate(180deg) translateX(-10px);" width="100" height="100">
+        </div>
+        <!-- music setting -->
+        <div id="setting" x-module="start" x-on:mouseup="start=true" x-bind:class="start ? 'settingStart' : undefined" x-on:mouseleave="exitBox=true" x-on:mouseover="exitBox=false">
+            <!-- setting box -->
+            <div x-show.immediate="start" x-show.transition.opacity="start">
+                <button>this is button</button>
+            </div>
+            <!-- setting image -->
+            <img src="./svg/settings.svg" x-show.immediate="!start" x-show.transition.opacity="!start" width="100" height="100" id="settings">
+        </div>
+    </div>
+</body>
+</html>
