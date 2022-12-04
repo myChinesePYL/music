@@ -1,3 +1,3 @@
-<svg xmlns="http://www.w3.org/2000/svg">
-    
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000">
+    <path d="M300,200L300,200L300,800L450,800L450,200L300,200 M650,200L650,200L650,800L800,800L800,200,L650,200" style="fill: white;stroke: white;stroke-width: 1px;" />
 </svg>

@@ -1,5 +1,13 @@
 <!DOCTYPE html>
-<html lang="zh_CN" x-data="{ exitBox: true,start: false }" x-on:mousedown="if(exitBox==true){start=false;console.log(start)}">
+<html lang="zh_CN" x-data="{
+    exitBox: true,
+    start: false,
+    played: false,
+    play_name: '',
+
+    id_a:'./src_png/黒皇帝 - Galaxy Collapse.jpg',
+    id_b:'./src_png/red zone.jpeg'
+}" x-module="played" x-on:mousedown="if(exitBox==true){start=false}">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,46 +22,60 @@
     <script>
         var temp=document.createElement('audio');
 
-        function play_music(info) {
+        function play_music(info,id) {
             // set img src
-            $('#music_png')[0].src=info.id_a;
+            $('#music_png')[0].src=info.id_src;
             // add music and play music
             temp.src=info.music_src;
             temp.volume=1;
-            temp.onplay=playMusic;
-            temp.onpause=pauseMusic;
+            temp.onplay=function(){$('#ed')[0].src='./svg/music_play.svg';document.documentElement.__x.$data.played=true;};
+            temp.onpause=function(){$('#ed')[0].src='./svg/music_stop.svg';document.documentElement.__x.$data.played=false;};
 
-            temp.muted=true;
+            // temp.muted=true;
             temp.play();
+            document.documentElement.__x.$data.play_name=id;
         }
-        function pauseMusic() {
-            $('#ed')[0].src=''
+        function playAndPause() {
+            if(!temp.src){
+                return false;
+            }
+
+            if(temp.paused){
+                temp.play();
+            }else{
+                temp.pause();
+            }
         }
-        function playMusic() {}
     </script>
 </head>
 <body>
     <!-- music home -->
-    <div id="home" x-data="{ id_a:'./src_png/黒皇帝 - Galaxy Collapse.jpg' }">
-        <button id="a" x-on:mouseup="play_music({id_a: id_a,music_src: './src_music/黒皇帝 - Galaxy Collapse.mp3'})">黒皇帝 - Galaxy Collapse</button>
+    <div id="home">
+        <button id="a" x-on:mouseup="play_music({id_src: id_a,music_src: './src_music/黒皇帝 - Galaxy Collapse.mp3'},'a')" x-bind:musiced="played && play_name=='a' ? 'true' : 'false'" >黒皇帝 - Galaxy Collapse</button>
+        <button id="b" x-on:mouseup="play_music({id_src: id_b,music_src: './src_music/red zone.mp3'},'b')" x-bind:musiced="played && play_name=='b' ? 'true' : 'false'" >red zone</button>
     </div>
+
     <!-- control -->
     <div id="control">
         <img style="border-radius: var(--img-border-radius); transform: scale(0.8);-webkit-transform: scale(0.8)" id="music_png" src="./svg/notPlayMusic.svg" width="100" height="100">
+
         <!-- music control -->
         <div id="control_music">
             <img src="./svg/upDownMusic.svg" width="100" height="100">
-            <img src="./svg/music_stop.svg" width="100" height="100" id="ed">
+            <img src="./svg/music_stop.svg" width="100" height="100" id="ed" x-on:mouseup="playAndPause()">
             <img src="./svg/upDownMusic.svg" style="-webkit-transform: rotate(180deg) translateX(-10px);transform: rotate(180deg) translateX(-10px);" width="100" height="100">
         </div>
+
         <!-- music setting -->
         <div id="setting" x-module="start" x-on:mouseup="start=true" x-bind:class="start ? 'settingStart' : undefined" x-on:mouseleave="exitBox=true" x-on:mouseover="exitBox=false">
+
             <!-- setting box -->
-            <div x-show.immediate="start" x-show.transition.opacity="start">
-                <button>this is button</button>
+            <div x-show="start">
+                <button></button>
             </div>
+
             <!-- setting image -->
-            <img src="./svg/settings.svg" x-show.immediate="!start" x-show.transition.opacity="!start" width="100" height="100" id="settings">
+            <img src="./svg/settings.svg" x-show="!start" width="100" height="100" id="settings">
         </div>
     </div>
 </body>
