@@ -76,7 +76,8 @@
 
             <!-- setting box -->
             <div x-show="start">
-                <button x-on:mouseup="location.reload();">reload</button>
+                <button x-on:mouseup="location.reload();" style="grid-area: reload;">reload</button>
+                <input type="range" id="volume" value="100">
             </div>
 
             <!-- setting image -->
