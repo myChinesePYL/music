@@ -8,14 +8,16 @@
     
     outline: none;
 }
+html{
+	overflow: hidden;
+	position: fixed;
+}
 body{
     display: flex;
     min-height: 100vh;
     min-width: 100%;
     background-color: gray;
     flex-direction: column;
-
-    overflow: hidden;
 }
 
 /* home style start */
@@ -119,7 +121,7 @@ body{
     appearance: none;
     background-color: rgb(100,100,100);
     width: 100px;
-    height: 50px;
+    height: 40px;
     overflow: hidden;
     margin-top: 10px;
 
