@@ -8,6 +8,7 @@
     id_a:'./src_png/黒皇帝 - Galaxy Collapse.jpg',
     id_b:'./src_png/red zone.jpeg'
 }" x-module="played" x-on:mousedown="if(exitBox==true){start=false}">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,64 +21,73 @@
     <script src="./jquery.js"></script>
 
     <script>
-        var temp=document.createElement('audio');
+        var temp = document.createElement('audio');
 
-        function play_music(info,id) {
+        function play_music(info, id) {
             // set img src
-            $('#music_png')[0].src=info.id_src;
+            $('#music_png')[0].src = info.id_src;
             // add music and play music
-            temp.src=info.music_src;
-            temp.volume=1;
-            temp.onplay=function(){$('#ed')[0].src='./svg/music_play.svg';document.documentElement.__x.$data.played=true;};
-            temp.onpause=function(){$('#ed')[0].src='./svg/music_stop.svg';document.documentElement.__x.$data.played=false;};
-            temp.preload="auto";
+            temp.src = info.music_src;
+            temp.volume = 1;
+            temp.onplay = function () { $('#ed')[0].src = './svg/music_play.svg'; document.documentElement.__x.$data.played = true; };
+            temp.onpause = function () { $('#ed')[0].src = './svg/music_stop.svg'; document.documentElement.__x.$data.played = false; };
+            temp.preload = "auto";
 
             // temp.muted=true;
             temp.play();
-            document.documentElement.__x.$data.play_name=id;
+            document.documentElement.__x.$data.play_name = id;
         }
         function playAndPause() {
-            if(!temp.src){
+            if (!temp.src) {
                 return false;
             }
 
-            if(temp.paused){
+            if (temp.paused) {
                 temp.play();
-            }else{
+            } else {
                 temp.pause();
             }
         }
     </script>
+</head>
 
+<body>
     <!-- load music(只是单纯加载) -->
     <audio src="./src_music/黒皇帝 - Galaxy Collapse.mp3" load="auto"></audio>
     <audio src="./src_music/red zone.mp3" load="auto"></audio>
-</head>
-<body>
     <!-- music home -->
     <div id="home">
-        <button id="a" x-on:mouseup="play_music({id_src: id_a,music_src: './src_music/黒皇帝 - Galaxy Collapse.mp3'},'a')" x-bind:musiced="played && play_name=='a' ? 'true' : 'false'" >黒皇帝 - Galaxy Collapse</button>
-        <button id="b" x-on:mouseup="play_music({id_src: id_b,music_src: './src_music/red zone.mp3'},'b')" x-bind:musiced="played && play_name=='b' ? 'true' : 'false'" >red zone(简称蓝屏钙)</button>
+        <button id="a" x-on:mouseup="play_music({id_src: id_a,music_src: './src_music/黒皇帝 - Galaxy Collapse.mp3'},'a')"
+            x-bind:musiced="played && play_name=='a' ? 'true' : 'false'">黒皇帝 - Galaxy Collapse</button>
+        <button id="b" x-on:mouseup="play_music({id_src: id_b,music_src: './src_music/red zone.mp3'},'b')"
+            x-bind:musiced="played && play_name=='b' ? 'true' : 'false'">red zone(简称蓝屏钙)</button>
     </div>
 
     <!-- control -->
     <div id="control">
-        <img loading="eager" style="transform: scale(0.8);-webkit-transform: scale(0.8)" id="music_png" src="./svg/notPlayMusic.svg" width="100" height="100">
+        <img loading="eager" style="transform: scale(0.8);-webkit-transform: scale(0.8)" id="music_png"
+            src="./svg/notPlayMusic.svg" width="100" height="100">
 
         <!-- music control -->
         <div id="control_music">
             <img loading="eager" x-on:mouseup="" src="./svg/upDownMusic.svg" width="100" height="100">
-            <img loading="eager" src="./svg/music_stop.svg" width="100" height="100" id="ed" x-on:mouseup="playAndPause()">
-            <img loading="eager" src="./svg/upDownMusic.svg" style="-webkit-transform: rotate(180deg) translateX(-10px);transform: rotate(180deg) translateX(-10px);" width="100" height="100">
+            <img loading="eager" src="./svg/music_stop.svg" width="100" height="100" id="ed"
+                x-on:mouseup="playAndPause()">
+            <img loading="eager" src="./svg/upDownMusic.svg"
+                style="-webkit-transform: rotate(180deg) translateX(-10px);transform: rotate(180deg) translateX(-10px);"
+                width="100" height="100">
         </div>
 
         <!-- music setting -->
-        <div id="setting" x-module="start" x-on:mouseup="start=true" x-bind:class="start ? 'settingStart' : undefined" x-on:mouseleave="exitBox=true" x-on:mouseover="exitBox=false">
+        <div id="setting" x-module="start" x-on:mouseup="start=true" x-bind:class="start ? 'settingStart' : undefined"
+            x-on:mouseleave="exitBox=true" x-on:mouseover="exitBox=false">
 
             <!-- setting box -->
             <div x-show="start">
                 <button x-on:mouseup="location.reload();" style="grid-area: reload;">reload</button>
-                <input type="range" id="volume" value="100">
+                <input type="range" id="volume" max="100" min="0" value="100"
+                    x-on:input="temp.volume=$('#volume')[0].value * 0.01"><span
+                    style="position: relative;bottom: 20px;font-size: 15px;border: 0px;">volume</span>
             </div>
 
             <!-- setting image -->
@@ -85,4 +95,5 @@
         </div>
     </div>
 </body>
+
 </html>
