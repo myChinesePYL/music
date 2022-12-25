@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000">
+    <line x1="500" y1="200" x2="500" y2="650" style="stroke: white;stroke-width: 50px;fill: transparent" />
+    <line x1="325" y1="450" x2="500" y2="650" style="stroke: white;stroke-width: 50px;fill: transparent" stroke-linecap="round" />
+    <line x1="500" y1="650" x2="675" y2="450" style="stroke: white;stroke-width: 50px;fill: transparent" stroke-linecap="round" />
+    <polygon points="400,350 , 200,350 , 200,750 , 800,750 , 800,350 , 600,350" style="stroke: white;stroke-width: 50px;fill: transparent;" stroke-dasharray="2000" stroke-dashoffset="200" />
+</svg>
