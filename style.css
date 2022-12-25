@@ -4,7 +4,7 @@
     font-family: Arial, Helvetica, sans-serif;
     border-radius: 24pt;
 
-    transition: 0.3s background-color linear;
+    transition: 0.3s background-color linear, 0.3s all cubic-bezier(0.50,0.50,0.00,1.30);
     
     outline: none;
 }
@@ -31,6 +31,11 @@ body{
     width: 100%;
     height: calc(100vh - 100px);
     border-radius: 0px 0pt 24pt 24pt;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+#home > *{
+    flex-shrink: 0;
 }
 #home > button{
     background-color: transparent;
@@ -60,10 +65,12 @@ body{
     background-color: gray;
     width: 100vw;
     height: 100px;
+    border-top: 1px solid white;
 }
 #control > *{
     user-select: none;
     -webkit-user-select: none;
+    z-index: 10;
 }
 #control > * > img, #control > img{
     background-color: gray;
@@ -80,9 +87,9 @@ body{
 #setting{
     display: grid;
     grid-template-areas: 'reload' 'volume';
-    transition: 0.5s all cubic-bezier(0.50,0.50,0.00,1.30);
     min-width: 100px;
     min-height: 100px;
+    z-index: 100;
 }
 /* setting starting.  set style(if class yes or no and settingStart) */
 #setting[class="settingStart"]{
