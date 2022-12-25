@@ -18,6 +18,7 @@
 
     <script>
         var temp=document.createElement('audio');
+        temp.volume=1;
         var music_list=["./src_music/黒皇帝 - Galaxy Collapse.mp3",
         "./src_music/red zone.mp3",
         "./src_music/TheFatRat - Unity.mp3",
@@ -30,7 +31,15 @@
         null,
         null];
         
-        var ID=0;
+        var ID=null;
+        $(function(){
+            if(!!localStorage.getItem('volumeValue')){
+                $('#volume')[0].value=localStorage.getItem('volumeValue') * 100;
+                temp.volume=localStorage.getItem('volumeValue');
+            }else{
+                localStorage.setItem('volumeValue',1);
+            }
+        })
 
         function play_music(numberID,el) {
           ID=numberID;
@@ -42,7 +51,6 @@
             }
             // add music and play music
             temp.src=music_list[ID];
-            temp.volume=1;
             temp.onplay=function(){$('#ed')[0].src='./svg/music_play.svg';document.documentElement.__x.$data.played=true;};
             temp.onpause=function(){$('#ed')[0].src='./svg/music_stop.svg';document.documentElement.__x.$data.played=false;};
             temp.preload="auto";
@@ -50,6 +58,13 @@
             // temp.muted=true;
             temp.play();
             document.documentElement.__x.$data.play_name=el;
+        }
+        function downMusic(){
+          if(ID == null){return;}
+          let a=document.createElement('a');
+          a.download="music.mp3";
+          a.href=music_list[ID];
+          a.click();
         }
         function playAndPause() {
             if(!temp.src){
@@ -80,9 +95,9 @@
 
         <!-- music control -->
         <div id="control_music">
-            <img loading="eager" x-on:mouseup="if(ID > 0 ){play_music(ID-1,$('#home > *')[ID-1])}" src="./svg/upDownMusic.svg" width="100" height="100">
+            <img loading="eager" x-on:mouseup="if(ID > 0 && ID != null){play_music(ID-1,$('#home > *')[ID-1])}" src="./svg/upDownMusic.svg" width="100" height="100">
             <img loading="eager" src="./svg/music_stop.svg" width="100" height="100" id="ed" x-on:mouseup="playAndPause()">
-            <img loading="eager" x-on:mouseup="if(ID < music_list.length-1 ){play_music(ID+1,$('#home > *')[ID+1])}" src="./svg/upDownMusic.svg" style="-webkit-transform: rotate(180deg) translateX(-10px);transform: rotate(180deg) translateX(-10px);" width="100" height="100">
+            <img loading="eager" x-on:mouseup="if(ID < music_list.length-1 && ID != null){play_music(ID+1,$('#home > *')[ID+1])}" src="./svg/upDownMusic.svg" style="-webkit-transform: rotate(180deg) translateX(-10px);transform: rotate(180deg) translateX(-10px);" width="100" height="100">
         </div>
 
         <!-- music setting -->
@@ -90,8 +105,9 @@
 
             <!-- setting box -->
             <div x-show="start">
-                <button x-on:mouseup="location.reload();" style="grid-area: reload;">reload</button>
-                <input type="range" id="volume" max="100" min="0" value="100" x-on:input="temp.volume=$('#volume')[0].value * 0.01"><span style="position: relative;bottom: 15px;left: 10px;font-size: 15px;border: 0px;">volume</span>
+                <button x-on:mouseup="localStorage.reload();" style="grid-area: reload;">reload</button>
+                <button x-on:mouseup="downMusic();" style="grid-area: downloadMusic;vertical-align: top;margin-left: 20px;"><img src="./svg/download.svg" width="100" height="100"></button>
+                <input type="range" id="volume" max="100" min="0" value="100" x-on:input="temp.volume=$('#volume')[0].value * 0.01;localStorage.setItem('volumeValue',$('#volume')[0].value * 0.01)"><span style="position: relative;bottom: 15px;left: 10px;font-size: 15px;border: 0px;">volume</span>
             </div>
 
             <!-- setting image -->

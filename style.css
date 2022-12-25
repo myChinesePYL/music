@@ -86,7 +86,7 @@ body{
 /* control setting element */
 #setting{
     display: grid;
-    grid-template-areas: 'reload' 'volume';
+    grid-template-areas: 'reload downloadMusic' 'volume';
     min-width: 100px;
     min-height: 100px;
     z-index: 100;
