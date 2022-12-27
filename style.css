@@ -4,7 +4,7 @@
     font-family: Arial, Helvetica, sans-serif;
     border-radius: 24pt;
 
-    transition: 0.3s background-color linear, 0.3s all cubic-bezier(0.50,0.50,0.00,1.30);
+    transition: 0.3s all cubic-bezier(0.50,0.50,0.00,1.30);
     
     outline: none;
 }
@@ -74,6 +74,7 @@ body{
 }
 #control > * > img, #control > img{
     background-color: gray;
+    vertical-align: bottom;
 }
 
 #control_music{
@@ -87,21 +88,25 @@ body{
 #setting{
     display: grid;
     grid-template-areas: 'reload downloadMusic' 'volume';
-    min-width: 100px;
-    min-height: 100px;
+    width: 100px;
+    height: 100px;
     z-index: 100;
 }
 /* setting starting.  set style(if class yes or no and settingStart) */
 #setting[class="settingStart"]{
+    --max-button: 2;
+    --max-margin: 3;
+  
     background-color: gray;
     border: 1px solid white;
 
     width: auto;
+    min-width: calc((100px * var(--max-button)) + (10px * var(--max-margin)));
+    max-width: calc((100px * var(--max-button)) + (10px * var(--max-margin)));
     height: auto;
     padding: 20px;
 
-    margin-bottom: calc(100px + 110px);
-    margin-right: 10px;
+    transform: translate(calc(10px - ((100px * var(--max-button)) + (10px * var(--max-margin)))), -160px);
 }
 #setting[class="settingStart"] > div > button{
     background-color: transparent;
@@ -163,22 +168,52 @@ body{
 
 
 /* screen size */
+@media screen and (min-width: 200px){
+    #home > button{
+        font-size: 10px;
+        margin: 5px 0px;
+    }
+    #control, #control > * > img, #control > img, #setting{
+        height: 50px;
+    }
+    #control > * > img, #control > img, #setting{
+        width: 50px;
+    }
+}
 @media screen and (min-width: 317px){
     #home > button{
         font-size: 20px;
         margin: 10px 0px;
     }
+    #control, #control > * > img, #control > img, #setting{
+        height: 60px;
+    }
+    #control > * > img, #control > img, #setting{
+        width: 60px;
+    }
 }
-@media (min-width: 373px){
+@media screen and (min-width: 373px){
     #home > button{
         font-size: 30px;
         margin: 20px 0px;
     }
+    #control, #control > * > img, #control > img, #setting{
+        height: 70px;
+    }
+    #control > * > img, #control > img, #setting{
+        width: 70px;
+    }
 }
-@media (min-width: 645px){
+@media screen and (min-width: 645px){
     #home > button{
         font-size: 50px;
         margin: 20px 0px;
+    }
+    #control, #control > * > img, #control > img, #setting{
+        height: 80px;
+    }
+    #control > * > img, #control > img, #setting{
+        width: 80px;
     }
 }
 /* macOS Windows and Linux screen end */
