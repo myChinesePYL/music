@@ -23,10 +23,14 @@
         "./src_music/red zone.mp3",
         "./src_music/TheFatRat - Unity.mp3",
         "./src_music/WF_Liang - See Tình（0.8x）.mp3",
-        "./src_music/青春畅想.mp3"];
+        "./src_music/青春畅想.mp3",
+        "./src_music/Bad Apple.mp3",
+        "./src_music/answearingmachine - IT GO.MP3"];
         
         var img_list=["./src_png/黒皇帝 - Galaxy Collapse.jpg",
         "./src_png/red zone.jpeg",
+        null,
+        null,
         null,
         null,
         null];
@@ -87,6 +91,8 @@
         <button id="c" x-on:mouseup="play_music(2,$('#c')[0])" x-bind:musiced="played && play_name==$('#c')[0] ? 'true' : 'false'">TheFatRat - Unity</button>
         <button id="d" x-on:mouseup="play_music(3,$('#d')[0])" x-bind:musiced="played && play_name==$('#d')[0] ? 'true' : 'false'">WF_Liang - See Tình（0.8x）</button>
         <button id="e" x-on:mouseup="play_music(4,$('#e')[0])" x-bind:musiced="played && play_name==$('#e')[0] ? 'true' : 'false'">青春畅享</button>
+        <button id="f" x-on:mouseup="play_music(5,$('#f')[0])" x-bind:musiced="played && play_name==$('#f')[0] ? 'true' : 'false'">Bad Apple!!</button>
+        <button id="g" x-on:mouseup="play_music(6,$('#g')[0])" x-bind:musiced="played && play_name==$('#g')[0] ? 'true' : 'false'">IT GO</button>
     </div>
 
     <!-- control -->
@@ -105,7 +111,7 @@
 
             <!-- setting box -->
             <div x-show="start">
-                <button x-on:mouseup="localStorage.reload();" style="grid-area: reload;">reload</button>
+                <button x-on:mouseup="location.reload();" style="grid-area: reload;">reload</button>
                 <button x-on:mouseup="downMusic();" style="grid-area: downloadMusic;vertical-align: top;margin-left: 20px;"><img src="./svg/download.svg" width="100" height="100"></button>
                 <input type="range" id="volume" max="100" min="0" value="100" x-on:input="temp.volume=$('#volume')[0].value * 0.01;localStorage.setItem('volumeValue',$('#volume')[0].value * 0.01)"><span style="position: relative;bottom: 15px;left: 10px;font-size: 15px;border: 0px;">volume</span>
             </div>
