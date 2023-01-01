@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" style="border: 15px solid white;border-radius: 70px;background-color: black;
+transform: scale(0.9);
+-webkit-transform: scale(0.9)">
+    <polygon points="300,800 , 300,200 , 500,500 , 700,200 , 700,800" stroke-dasharray="2400" stroke-dashoffset="480" style="fill: transparent;stroke: white;stroke-width: 50px;"/>
+</svg>
