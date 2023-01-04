@@ -1,18 +1,22 @@
-*{
+@font-face {
+    font-family: 'SmileySans';
+    src: url('./SmileySans.ttf');
+}
+* {
     margin: 0;
     padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, 'SmileySans', Sans-Serif;
     border-radius: 24pt;
 
     transition: 0.3s all cubic-bezier(0.50,0.50,0.00,1.30);
-    
+
     outline: none;
 }
-html{
-	overflow: hidden;
-	position: fixed;
+html {
+    overflow: hidden;
+    position: fixed;
 }
-body{
+body {
     display: flex;
     min-height: 100vh;
     min-width: 100%;
@@ -21,7 +25,7 @@ body{
 }
 
 /* home style start */
-#home{
+#home {
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -34,10 +38,10 @@ body{
     overflow-x: hidden;
     overflow-y: auto;
 }
-#home > *{
+#home > * {
     flex-shrink: 0;
 }
-#home > button{
+#home > button {
     background-color: transparent;
     border: 0px;
     color: black;
@@ -47,17 +51,17 @@ body{
     user-select: none;
     -webkit-user-select: none;
 }
-#home > button:hover, #home > button[musiced="true"]{
+#home > button:hover, #home > button[musiced="true"] {
     background-color: rgba(0, 0, 0, 0.2);
 }
-#home > button:active{
+#home > button:active {
     color: black;
     background-color: rgba(0, 0, 0, 0.4);
 }
 
 /* home style end */
 /* control style start */
-#control{
+#control {
     --img-size: 1.0;
 
     display: flex;
@@ -67,16 +71,16 @@ body{
     height: 100px;
     border-top: 1px solid white;
 }
-#control > *{
+#control > * {
     user-select: none;
     -webkit-user-select: none;
     z-index: 10;
 }
-#control > * > img, #control > img{
+#control > * > img, #control > img {
     vertical-align: bottom;
 }
 
-#control_music{
+#control_music {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -84,7 +88,7 @@ body{
     height: 100%;
 }
 /* control setting element */
-#setting{
+#setting {
     display: grid;
     grid-template-areas: 'reload downloadMusic' 'volume';
     width: 100px;
@@ -92,10 +96,12 @@ body{
     z-index: 100;
 }
 /* setting starting.  set style(if class yes or no and settingStart) */
-#setting[class="settingStart"]{
+#setting[class="settingStart"] {
     --max-button: 2;
     --max-margin: 3;
-  
+    position: absolute;
+    right: 10px;
+
     background-color: rgba(100,100,100,0.5);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -107,28 +113,28 @@ body{
     height: auto;
     padding: 20px;
 
-    transform: translate(calc(10px - ((100px * var(--max-button)) + (10px * var(--max-margin)))), -160px);
+    transform: translateY(-170px);
 }
-#setting[class="settingStart"] > div > button{
+#setting[class="settingStart"] > div > button {
     background-color: transparent;
     width: 100px;
     height: 100px;
     font-size: 20px;
 }
-#setting[class="settingStart"] > div > *{
-	color: white;
+#setting[class="settingStart"] > div > * {
+    color: white;
 }
-#setting[class="settingStart"] > div > button:hover{
+#setting[class="settingStart"] > div > button:hover {
     background-color: rgba(0,0,0,0.2);
 }
-#setting[class="settingStart"] > div > button:active{
+#setting[class="settingStart"] > div > button:active {
     background-color: rgba(0, 0, 0, 0.4);
 }
-#setting[class="settingStart"] > div > *{
+#setting[class="settingStart"] > div > * {
     border: 2px solid rgba(255,255,255,0.5);
 }
 /* setting volume style */
-#volume{
+#volume {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -140,7 +146,7 @@ body{
 
     grid-area: volume;
 }
-#volume::-webkit-slider-thumb{
+#volume::-webkit-slider-thumb {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -150,7 +156,7 @@ body{
     box-shadow: -100vw 50vh 0px 100vw black;
 }
 /* moz */
-#volume::-moz-range-thumb{
+#volume::-moz-range-thumb {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -159,9 +165,37 @@ body{
     background-color: rgb(0, 0, 0);
     box-shadow: -100vw 50vh 0px 100vw black;
 }
-#volume::-moz-range-progress{
+#volume::-moz-range-progress {
     background-color: rgb(0, 0, 0);
     box-shadow: -100vw 50vh 0px 100vw black;
+}
+ul > li {
+    list-style: none;
+}
+#fButton + ul {
+    display: none;
+    margin-left: 5px;
+}
+#fButton + ul > li {
+    margin: 3px;
+}
+#fButton {
+    margin-left: 5px;
+    border: 0px;
+    background-color: white;
+    font-size: 20px;
+    color: black;
+    padding: 5px;
+    box-shadow: 0px 0px 10px white;
+    border-radius: 10px;
+}
+#fButton:hover {
+    background-color: orange;
+    box-shadow: 0px 0px 10px orange;
+}
+#fButton:active {
+    background-color: lightgreen;
+    box-shadow: 0px 0px 10px lightgreen;
 }
 /* control style end */
 
@@ -169,51 +203,51 @@ body{
 
 
 /* screen size */
-@media screen and (min-width: 200px), screen and (max-width: 0px){
-    #home > button{
+@media screen and (min-width: 200px), screen and (max-width: 0px) {
+    #home > button {
         font-size: 10px;
         margin: 5px 0px;
     }
-    #control, #control > * > img, #control > img, #setting{
+    #control, #control > * > img, #control > img, #setting {
         height: 50px;
     }
-    #control > * > img, #control > img, #setting{
+    #control > * > img, #control > img, #setting {
         width: 50px;
     }
 }
-@media screen and (min-width: 317px){
-    #home > button{
+@media screen and (min-width: 317px) {
+    #home > button {
         font-size: 20px;
         margin: 10px 0px;
     }
-    #control, #control > * > img, #control > img, #setting{
+    #control, #control > * > img, #control > img, #setting {
         height: 60px;
     }
-    #control > * > img, #control > img, #setting{
+    #control > * > img, #control > img, #setting {
         width: 60px;
     }
 }
-@media screen and (min-width: 373px){
-    #home > button{
+@media screen and (min-width: 373px) {
+    #home > button {
         font-size: 30px;
         margin: 20px 0px;
     }
-    #control, #control > * > img, #control > img, #setting{
+    #control, #control > * > img, #control > img, #setting {
         height: 70px;
     }
-    #control > * > img, #control > img, #setting{
+    #control > * > img, #control > img, #setting {
         width: 70px;
     }
 }
-@media screen and (min-width: 645px){
-    #home > button{
+@media screen and (min-width: 645px) {
+    #home > button {
         font-size: 50px;
         margin: 20px 0px;
     }
-    #control, #control > * > img, #control > img, #setting{
+    #control, #control > * > img, #control > img, #setting {
         height: 80px;
     }
-    #control > * > img, #control > img, #setting{
+    #control > * > img, #control > img, #setting {
         width: 80px;
     }
 }
@@ -221,39 +255,39 @@ body{
 
 /* dark color */
 @media (prefers-color-scheme: dark) {
-    #home{
+    #home {
         background-color: rgb(50,50,50);
     }
 
-    #home > button{
+    #home > button {
         color: white;
     }
-    #home > button:hover{
+    #home > button:hover {
         background-color: rgba(0, 0, 0, 0.2);
     }
-    #home > button:active{
+    #home > button:active {
         color: white;
         background-color: rgba(0, 0, 0, 0.4);
     }
 
-    #control{
+    #control {
         background-color: black;
     }
 
-    body{
+    body {
         background-color: black;
     }
-    
-    #setting[class="settingStart"]{
+
+    #setting[class="settingStart"] {
         background-color: rgba(30,30,30,0.5);
     }
-    #setting[class="settingStart"] > div > button{
+    #setting[class="settingStart"] > div > button {
         color: white;
     }
-    #setting[class="settingStart"] > div > button:hover{
+    #setting[class="settingStart"] > div > button:hover {
         background-color: rgba(255, 255, 255, 0.2);
     }
-    #setting[class="settingStart"] > div > button:active{
+    #setting[class="settingStart"] > div > button:active {
         background-color: rgba(255, 255, 255, 0.4);
     }
 }

@@ -1,125 +1,132 @@
 <!DOCTYPE html>
 <html lang="zh_CN" x-data="{
-    exitBox: true,
-    start: false,
-    played: false,
-    play_name: ''
+exitBox: true,
+start: false,
+played: false,
+play_name: ''
 }" x-module="played" x-on:mousedown="if(exitBox==true){start=false}">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My music</title>
-    <!-- style file -->
-    <link rel="stylesheet" type="text/css" href="./style.css">
-    <link rel="shortcut icon" type="image/x-icon" href="./svg/icon.svg">
-    <!-- js  -->
-    <script src="./alpine.js" defer></script>
-    <script src="./jquery.js"></script>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>My music</title>
+     <!-- style file -->
+     <link rel="stylesheet" type="text/css" href="./style.css">
+     <link rel="shortcut icon" type="image/x-icon" href="./svg/icon.svg">
+     <!-- js  -->
+     <script src="./alpine.js" defer></script>
+     <script src="./jquery.js"></script>
 
-    <script>
-        var temp=document.createElement('audio');
-        temp.volume=1;
-        var music_list=["./src_music/黒皇帝 - Galaxy Collapse.mp3",
-        "./src_music/red zone.mp3",
-        "./src_music/TheFatRat - Unity.mp3",
-        "./src_music/WF_Liang - See Tình（0.8x）.mp3",
-        "./src_music/青春畅想.mp3",
-        "./src_music/Bad Apple.mp3",
-        "./src_music/answearingmachine - IT GO.MP3"];
-        
-        var img_list=["./src_png/黒皇帝 - Galaxy Collapse.jpg",
-        "./src_png/red zone.jpeg",
-        null,
-        null,
-        null,
-        null,
-        null];
-        
-        var ID=null;
-        $(function(){
-            if(!!localStorage.getItem('volumeValue')){
-                $('#volume')[0].value=localStorage.getItem('volumeValue') * 100;
-                temp.volume=localStorage.getItem('volumeValue');
-            }else{
-                localStorage.setItem('volumeValue',1);
-            }
-        })
+     <script>
+          var temp = document.createElement('audio');
+          temp.volume = 1;
+          var music_list = ["./src_music/黒皇帝 - Galaxy Collapse.mp3",
+               "./src_music/red zone.mp3",
+               "./src_music/TheFatRat - Unity.mp3",
+               "./src_music/WF_Liang - See Tình（0.8x）.mp3",
+               "./src_music/青春畅想.mp3",
+               "./src_music/Bad Apple.mp3",
+               "./src_music/answearingmachine - IT GO.MP3"];
 
-        function play_music(numberID,el) {
-          ID=numberID;
-            // set img src
-            if(!!img_list[ID]){
-              $('#music_png')[0].src=img_list[ID];
-            }else{
-              $('#music_png')[0].src='./svg/notPlayMusic.svg';
-            }
-            // add music and play music
-            temp.src=music_list[ID];
-            temp.onplay=function(){$('#ed')[0].src='./svg/music_play.svg';document.documentElement.__x.$data.played=true;};
-            temp.onpause=function(){$('#ed')[0].src='./svg/music_stop.svg';document.documentElement.__x.$data.played=false;};
-            temp.preload="auto";
+          var img_list = ["./src_png/黒皇帝 - Galaxy Collapse.jpg",
+               "./src_png/red zone.jpeg",
+               null,
+               null,
+               null,
+               null,
+               null];
 
-            // temp.muted=true;
-            temp.play();
-            document.documentElement.__x.$data.play_name=el;
-        }
-        function downMusic(){
-          if(ID == null){return;}
-          let a=document.createElement('a');
-          a.download="music.mp3";
-          a.href=music_list[ID];
-          a.click();
-        }
-        function playAndPause() {
-            if(!temp.src){
-                return false;
-            }
+          var ID = null;
+          $(function() {
+               if (!!localStorage.getItem('volumeValue')) {
+                    $('#volume')[0].value = localStorage.getItem('volumeValue') * 100;
+                    temp.volume = localStorage.getItem('volumeValue');
+               } else {
+                    localStorage.setItem('volumeValue', 1);
+               }
+          })
 
-            if(temp.paused){
-                temp.play();
-            }else{
-                temp.pause();
-            }
-        }
-    </script>
+          function play_music(numberID, el) {
+               ID = numberID;
+               // set img src
+               if (!!img_list[ID]) {
+                    $('#music_png')[0].src = img_list[ID];
+               } else {
+                    $('#music_png')[0].src = './svg/notPlayMusic.svg';
+               }
+               // add music and play music
+               temp.src = music_list[ID];
+               temp.onplay = function() {
+                    $('#ed')[0].src = './svg/music_play.svg'; document.documentElement.__x.$data.played = true;
+               };
+               temp.onpause = function() {
+                    $('#ed')[0].src = './svg/music_stop.svg'; document.documentElement.__x.$data.played = false;
+               };
+               temp.preload = "auto";
+
+               // temp.muted=true;
+               temp.play();
+               document.documentElement.__x.$data.play_name = el;
+          }
+          function downMusic() {
+               if (ID == null) {
+                    return;
+               }
+               let a = document.createElement('a');
+               a.download = "music.mp3";
+               a.href = music_list[ID];
+               a.click();
+          }
+          function playAndPause() {
+               if (!temp.src) {
+                    return false;
+               }
+
+               if (temp.paused) {
+                    temp.play();
+               } else {
+                    temp.pause();
+               }
+          }
+     </script>
 </head>
 <body>
-    <!-- music home -->
-    <div id="home">
-        <button id="a" x-on:mouseup="play_music(0,$('#a')[0])" x-bind:musiced="played && play_name==$('#a')[0] ? 'true' : 'false'" >黒皇帝 - Galaxy Collapse</button>
-        <button id="b" x-on:mouseup="play_music(1,$('#b')[0])" x-bind:musiced="played && play_name==$('#b')[0] ? 'true' : 'false'" >red zone(简称蓝屏钙)</button>
-        <button id="c" x-on:mouseup="play_music(2,$('#c')[0])" x-bind:musiced="played && play_name==$('#c')[0] ? 'true' : 'false'">TheFatRat - Unity</button>
-        <button id="d" x-on:mouseup="play_music(3,$('#d')[0])" x-bind:musiced="played && play_name==$('#d')[0] ? 'true' : 'false'">WF_Liang - See Tình（0.8x）</button>
-        <button id="e" x-on:mouseup="play_music(4,$('#e')[0])" x-bind:musiced="played && play_name==$('#e')[0] ? 'true' : 'false'">青春畅享</button>
-        <button id="f" x-on:mouseup="play_music(5,$('#f')[0])" x-bind:musiced="played && play_name==$('#f')[0] ? 'true' : 'false'">Bad Apple!!</button>
-        <button id="g" x-on:mouseup="play_music(6,$('#g')[0])" x-bind:musiced="played && play_name==$('#g')[0] ? 'true' : 'false'">IT GO</button>
-    </div>
+     <!-- music home -->
+     <div id="home">
+          <button id="a" x-on:mouseup="play_music(0,$('#a')[0])" x-bind:musiced="played && play_name==$('#a')[0] ? 'true' : 'false'">黑皇帝 - Galaxy Collapse</button>
+          <button id="b" x-on:mouseup="play_music(1,$('#b')[0])" x-bind:musiced="played && play_name==$('#b')[0] ? 'true' : 'false'">red zone(简称蓝屏钙)</button>
+          <button id="c" x-on:mouseup="play_music(2,$('#c')[0])" x-bind:musiced="played && play_name==$('#c')[0] ? 'true' : 'false'">TheFatRat - Unity</button>
+          <button id="d" x-on:mouseup="play_music(3,$('#d')[0])" x-bind:musiced="played && play_name==$('#d')[0] ? 'true' : 'false'">WF_Liang - See Tình（0.8x）</button>
+          <button id="e" x-on:mouseup="play_music(4,$('#e')[0])" x-bind:musiced="played && play_name==$('#e')[0] ? 'true' : 'false'">青春畅享</button>
+          <button id="f" x-on:mouseup="play_music(5,$('#f')[0])" x-bind:musiced="played && play_name==$('#f')[0] ? 'true' : 'false'">Bad Apple!!</button>
+          <button id="g" x-on:mouseup="play_music(6,$('#g')[0])" x-bind:musiced="played && play_name==$('#g')[0] ? 'true' : 'false'">IT GO</button>
+     </div>
 
-    <!-- control -->
-    <div id="control">
-        <img loading="eager" style="transform: scale(0.8);-webkit-transform: scale(0.8)" id="music_png" src="./svg/notPlayMusic.svg" width="100" height="100">
+     <!-- control -->
+     <div id="control">
+          <img loading="eager" style="transform: scale(0.8);-webkit-transform: scale(0.8)" id="music_png" src="./svg/notPlayMusic.svg" width="100" height="100">
 
-        <!-- music control -->
-        <div id="control_music">
-            <img loading="eager" x-on:mouseup="if(ID > 0 && ID != null){play_music(ID-1,$('#home > *')[ID-1])}" src="./svg/upDownMusic.svg" width="100" height="100">
-            <img loading="eager" src="./svg/music_stop.svg" width="100" height="100" id="ed" x-on:mouseup="playAndPause()">
-            <img loading="eager" x-on:mouseup="if(ID < music_list.length-1 && ID != null){play_music(ID+1,$('#home > *')[ID+1])}" src="./svg/upDownMusic.svg" style="-webkit-transform: rotate(180deg) translateX(-10px);transform: rotate(180deg) translateX(-10px);" width="100" height="100">
-        </div>
+          <!-- music control -->
+          <div id="control_music">
+               <img loading="eager" x-on:mouseup="if(ID > 0 && ID != null){play_music(ID-1,$('#home > *')[ID-1])}" src="./svg/upDownMusic.svg" width="100" height="100">
+               <img loading="eager" src="./svg/music_stop.svg" width="100" height="100" id="ed" x-on:mouseup="playAndPause()">
+               <img loading="eager" x-on:mouseup="if(ID < music_list.length-1 && ID != null){play_music(ID+1,$('#home > *')[ID+1])}" src="./svg/upDownMusic.svg" style="-webkit-transform: rotate(180deg) translateX(-10px);transform: rotate(180deg) translateX(-10px);" width="100" height="100">
+          </div>
 
-        <!-- music setting -->
-        <div id="setting" x-module="start" x-on:mouseup="start=true" x-bind:class="start ? 'settingStart' : undefined" x-on:mouseleave="exitBox=true" x-on:mouseover="exitBox=false">
+          <!-- music setting -->
+          <div id="setting" x-module="start" x-on:mouseup="start=true" x-bind:class="start ? 'settingStart' : undefined" x-on:mouseleave="exitBox=true" x-on:mouseover="exitBox=false">
 
-            <!-- setting box -->
-            <div x-show="start">
-                <button x-on:mouseup="location.reload();" style="grid-area: reload;">reload</button>
-                <button x-on:mouseup="downMusic();" style="grid-area: downloadMusic;vertical-align: top;margin-left: 20px;"><img src="./svg/download.svg" width="100" height="100"></button>
-                <input type="range" id="volume" max="100" min="0" value="100" x-on:input="temp.volume=$('#volume')[0].value * 0.01;localStorage.setItem('volumeValue',$('#volume')[0].value * 0.01)"><span style="position: relative;bottom: 15px;left: 10px;font-size: 15px;border: 0px;">volume</span>
-            </div>
+               <!-- setting box -->
+               <div x-show="start">
+                    <button x-on:mouseup="location.reload();" style="grid-area: reload;">reload</button>
+                    <button x-on:mouseup="downMusic();" style="grid-area: downloadMusic;vertical-align: top;margin-left: 20px;"><img src="./svg/download.svg" width="100" height="100"></button>
+                    <input type="range" id="volume" max="100" min="0" value="100" x-on:input="temp.volume=$('#volume')[0].value * 0.01;localStorage.setItem('volumeValue',$('#volume')[0].value * 0.01)"><span style="position: relative;bottom: 15px;left: 10px;font-size: 15px;border: 0px;">volume</span>
+                    <p style="height: 5px;border: 0px;opacity: 0px;pointer-events: none;">&nbsp;</p>
+               </div>
 
-            <!-- setting image -->
-            <img loading="eager" src="./svg/settings.svg" x-show="!start" width="100" height="100" id="settings">
-        </div>
-    </div>
+               <!-- setting image -->
+               <img loading="eager" src="./svg/settings.svg" x-show="!start" width="100" height="100" id="settings">
+          </div>
+     </div>
 </body>
 </html>
