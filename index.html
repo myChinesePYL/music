@@ -54,25 +54,38 @@ play_name: ''
 
     function play_music(numberID, el) {
       ID = numberID;
-      // set img src
+      // set img src设置音乐图片地址
       if (!!img_list[ID]) {
         $('#music_png')[0].src = img_list[ID];
       } else {
         $('#music_png')[0].src = './svg/notPlayMusic.svg';
       }
-      // add music and play music
+      // add music and play music添加音乐和播放音乐
       temp.src = music_list[ID];
       temp.onplay = function() {
         $('#ed')[0].src = './svg/music_play.svg'; document.documentElement.__x.$data.played = true;
+        $('#rg')[0].value = 0;
       };
       temp.onpause = function() {
         $('#ed')[0].src = './svg/music_stop.svg'; document.documentElement.__x.$data.played = false;
       };
+      temp.addEventListener('timeupdate',function(){
+        $('#mR > input')[0].value = (temp.currentTime / temp.duration) * 100;
+        if(temp.currentTime >= temp.duration - 0.1){
+          downM();
+        }
+      })
       temp.preload = "auto";
 
       // temp.muted=true;
       temp.play();
       document.documentElement.__x.$data.play_name = el;
+    }
+    function downM() {
+      if(ID < music_list.length-1 && ID != null){play_music(ID+1,$('#home > *')[ID+2]);return true;}else{play_music(0,$('#a')[0]);return false;}
+    }
+    function upM() {
+      if(ID > 0 && ID != null){play_music(ID-1,$('#home > *')[ID]);return true;}else{play_music(music_list.length - 1,$('#home > *')[$('#home > *').length - 1]);return false;}
     }
     function downMusic() {
       if (ID == null) {
@@ -103,7 +116,7 @@ play_name: ''
   </script>
 </head>
 <body>
-  <!-- music home -->
+  <!-- music home音乐主页 -->
   <div id="home">
     <p @mouseup="bq()" id="bq" style="text-align: center;color: gray;background: yellow;padding: 10px;font-size: 20px;margin-top: 10px;border-radius: 20px;">
       音乐来自酷狗音乐，图片也来自酷狗音乐，网页只是随便做做，寒假太无聊而已(没&nbsp;侵&nbsp;权&nbsp;啊<br>
@@ -123,17 +136,20 @@ play_name: ''
   <div id="control">
     <img loading="eager" style="transform: scale(0.8);-webkit-transform: scale(0.8)" id="music_png" src="./svg/notPlayMusic.svg" width="100" height="100">
 
-    <!-- music control -->
+    <!-- music control音乐控制面板 -->
     <div id="control_music">
-      <img loading="eager" x-on:mouseup="if(ID > 0 && ID != null){play_music(ID-1,$('#home > *')[ID-1])}" src="./svg/upDownMusic.svg" width="100" height="100">
+      <img loading="eager" x-on:mouseup="upM()" src="./svg/upDownMusic.svg" width="100" height="100">
       <img loading="eager" src="./svg/music_stop.svg" width="100" height="100" id="ed" x-on:mouseup="playAndPause()">
-      <img loading="eager" x-on:mouseup="if(ID < music_list.length-1 && ID != null){play_music(ID+1,$('#home > *')[ID+1])}" src="./svg/upDownMusic.svg" style="-webkit-transform: rotate(180deg) translateX(-10px);transform: rotate(180deg) translateX(-10px);" width="100" height="100">
+      <img loading="eager" x-on:mouseup="downM()" src="./svg/upDownMusic.svg" style="-webkit-transform: rotate(180deg) translateX(-10px);transform: rotate(180deg) translateX(-10px);" width="100" height="100">
+    </div>
+    <div id="mR">
+      <input id="rg" x-data="" type="range" min="0" max="100" value="0" @input="temp.currentTime = ($el.value * temp.duration) / 100" />
     </div>
 
-    <!-- music setting -->
+    <!-- music setting音乐设置 -->
     <div id="setting" x-module="start" x-on:mouseup="start=true" x-bind:class="start ? 'settingStart' : undefined" x-on:mouseleave="exitBox=true" x-on:mouseover="exitBox=false">
 
-      <!-- setting box -->
+      <!-- setting box设置窗口 -->
       <div x-show="start">
         <button x-on:mouseup="location.reload();" style="grid-area: reload;">reload</button>
         <button x-on:mouseup="downMusic();" style="grid-area: downloadMusic;vertical-align: top;margin-left: 20px;"><img src="./svg/download.svg" width="100" height="100"></button>
@@ -143,7 +159,7 @@ play_name: ''
         </p>
       </div>
 
-      <!-- setting image -->
+      <!-- setting image设置的图片 -->
       <img loading="eager" src="./svg/settings.svg" x-show="!start" width="100" height="100" id="settings">
     </div>
   </div>

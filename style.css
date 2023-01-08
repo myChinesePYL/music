@@ -5,7 +5,7 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: Arial, 'SmileySans', Sans-Serif;
+  font-family: 'SmileySans', Helvetica, Sans-Serif;
   font-weight: 500;
   border-radius: 24pt;
 
@@ -25,7 +25,7 @@ body {
   flex-direction: column;
 }
 
-/* home style start */
+/* home style start首页样式头 */
 p {
   user-select: none;
   -webkit-user-select: none;
@@ -64,8 +64,8 @@ p {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-/* home style end */
-/* control style start */
+/* home style end首页样式尾 */
+/* control style start控制面板样式头 */
 #control {
   --img-size: 1.0;
 
@@ -92,7 +92,46 @@ p {
   width: 100%;
   height: 100%;
 }
-/* control setting element */
+/* 音乐进度条 */
+#mR{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 20px;
+}
+#mR > input[type=range]{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: calc(100% - (15px * 2));
+  height: 20px;
+  background-color: rgb(100,100,100);
+  overflow: hidden;
+}
+#mR > input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: rgb(255,255,255);
+  width: 0px;
+  height: 50vh;
+  box-shadow: -100vw 50vh 0px 100vw white;
+}
+#mR > input[type=range]::-moz-range-thumb {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 0px;
+  height: 50vh;
+  background-color: rgb(255,255,255);
+  box-shadow: -100vw 50vh 0px 100vw white;
+}
+#mR > input[type=range]::-moz-range-progress {
+  background-color: rgb(255,255,255);
+  box-shadow: -100vw 50vh 0px 100vw white;
+}
+/* control setting element控制面板设置元素 */
 #setting {
   display: grid;
   grid-template-areas: 'reload downloadMusic' 'volume';
@@ -100,7 +139,7 @@ p {
   height: 100px;
   z-index: 100;
 }
-/* setting starting.  set style(if class yes or no and settingStart) */
+/* setting starting.  set style(if class yes or no and settingStart)设置开始中。设置样式（检测class是否等于settingStart */
 #setting[class="settingStart"] {
   --max-button: 2;
   --max-margin: 3;
@@ -138,7 +177,7 @@ p {
 #setting[class="settingStart"] > div > * {
   border: 2px solid rgba(255,255,255,0.5);
 }
-/* setting volume style */
+/* setting volume style音乐样式 */
 #volume {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -202,12 +241,12 @@ ul > li {
   background-color: lightgreen;
   box-shadow: 0px 0px 10px lightgreen;
 }
-/* control style end */
+/* control style end控制面板样式尾 */
 
 
 
 
-/* screen size */
+/* screen size屏幕大小 */
 @media screen and (min-width: 200px), screen and (max-width: 0px) {
   #home > button {
     font-size: 10px;
@@ -256,9 +295,9 @@ ul > li {
     width: 80px;
   }
 }
-/* macOS Windows and Linux screen end */
+/* macOS Windows and Linux screen end mac电脑 Windows电脑和Linux屏幕尾 */
 
-/* dark color */
+/* dark color深色颜色 */
 @media (prefers-color-scheme: dark) {
   #home {
     background-color: rgb(50,50,50);
