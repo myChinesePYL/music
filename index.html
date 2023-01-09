@@ -70,7 +70,7 @@ play_name: ''
         $('#ed')[0].src = './svg/music_stop.svg'; document.documentElement.__x.$data.played = false;
       };
       temp.addEventListener('timeupdate',function(){
-        $('#mR > input')[0].value = (temp.currentTime / temp.duration) * 100;
+        $('#mR > input')[0].value = ((temp.currentTime / temp.duration) * 100) * 100;
         if(temp.currentTime >= temp.duration - 0.1){
           downM();
         }
@@ -143,7 +143,7 @@ play_name: ''
       <img loading="eager" x-on:mouseup="downM()" src="./svg/upDownMusic.svg" style="-webkit-transform: rotate(180deg) translateX(-10px);transform: rotate(180deg) translateX(-10px);" width="100" height="100">
     </div>
     <div id="mR">
-      <input id="rg" x-data="" type="range" min="0" max="100" value="0" @input="temp.currentTime = ($el.value * temp.duration) / 100" />
+      <input id="rg" x-data="" type="range" min="0" max="10000" value="0" @input="temp.currentTime = (($el.value * temp.duration) / 100) / 100" />
     </div>
 
     <!-- music setting音乐设置 -->
